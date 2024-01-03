@@ -10,14 +10,26 @@ namespace ObserverPattern
         private float _humidity;
         private float _pressure;
 
-        public void RegisterObserver(IObserver observer)
+        public string RegisterObserver(IObserver observer)
         {
+            var indexOfObserver = _observers.IndexOf(observer);
 
+            if (indexOfObserver != -1) return "Observer has alrady been added";
+
+            _observers.Add(observer);
+
+            return "Observer added successfully";
         }
 
-        public void RemoveObserver(IObserver observer)
+        public string RemoveObserver(IObserver observer)
         {
+            var indexOfObserver = _observers.IndexOf(observer);
 
+            if (indexOfObserver == -1) return "Observer Does not exist";
+
+            _observers.RemoveAt(indexOfObserver);
+
+            return "Observer removed successfully";
         }
 
         public void NotifyObservers()
@@ -38,6 +50,7 @@ namespace ObserverPattern
             _temperature = temp;
             _humidity = humidity;
             _pressure = pressure;
+            MeasurementsChanged();
         }
     }
 }
