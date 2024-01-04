@@ -7,6 +7,7 @@ namespace ObserverPattern.Interfaces.Subject
         public string RegisterObserver(IObserver observer);
         public string RemoveObserver(IObserver observer);
         public void NotifyObservers();
-
+        public void SetChanged();
+        public void ClearChanged();
     }
 }
