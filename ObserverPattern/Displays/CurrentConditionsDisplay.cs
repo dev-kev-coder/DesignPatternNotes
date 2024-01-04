@@ -1,6 +1,6 @@
-﻿using ObserverPattern.Interfaces.Display;
+﻿using ObserverPattern.Classes;
+using ObserverPattern.Interfaces.Display;
 using ObserverPattern.Interfaces.Observer;
-using ObserverPattern.Interfaces.Subject;
 
 namespace ObserverPattern.Displays
 {
@@ -8,18 +8,21 @@ namespace ObserverPattern.Displays
     {
         private float _temperature;
         private float _humidity;
-        private readonly ISubject _weatherData;
+        private readonly Observable _weatherData;
 
-        public CurrentConditionsDisplay (ISubject weatherData)
+        public CurrentConditionsDisplay (Observable weatherData)
         {
             _weatherData = weatherData;
             _weatherData.RegisterObserver(this);
         }
 
-        public void Update (float temp, float humidity, float pressure)
+        public void Update (Observable observable)
         {
-            _temperature = temp;
-            _humidity = humidity;
+            if (observable is WeatherData weatherData)
+            {
+                _temperature = weatherData.GetTemperature();
+                _humidity = weatherData.GetHumidity();
+            }
             Display();
         }
 
