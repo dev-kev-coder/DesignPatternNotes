@@ -8,6 +8,10 @@ namespace ObserverPattern
         private float _humidity;
         private float _pressure;
 
+        public float Temperature { get { return _temperature; } set {  _temperature = value; } }
+        public float Humidity { get { return _humidity; } set { _humidity = value; } }
+        public float Pressure { get { return _pressure; } set { _pressure = value; } }
+
         public void SetMeasurements (float temp, float humidity, float pressure)
         {
             _temperature = temp;
