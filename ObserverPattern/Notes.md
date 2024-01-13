@@ -7,26 +7,53 @@ For example:
 
 To me the **Observer Pattern** (in a summed up way) is something that is being watched along with the things that need to watch it.
 
-<!-- ## Using Ducks
-In the basic example of the Duck Strategy Pattern we are using an <span style="color:green">**abstract**</span> base class to help encapsulate the common behaviors relating to all types of ducks such as they all usually have the ability to Fly and Quack (the ones that don't still have the *action* to do so but it just ends up doing "nothing").
+# Using WeatherData
+In the example of the *WeatherData Observer Pattern* we are using an **Observable Class** as a base class to help encapsulate the common behaviors relating to all types of **Observable Objects** which should all have common behavoirs.
 
-The <span style="color:green">**abstract**</span> Duck class has the common behaviors that all ducks hould have such as a FlyBehavoir and a QuackBehavior which will be represented as an <span style="color:yellow">**interface**</span> (**contract**) for any behavior object we wish to instantiate.
+So **WeatherData "is-a" Obseravble** type of relationship.
 
-## Breaking Down the Contracts
-The QuackBehavoir contract requires any concrete class (**behavior**) using the contract to have a method called Quack in it.
+# Using CurrentConditionsDisplay
+The **CurrentConditionsDisplay Object** is subscribed to the **WeatherData Object** so when something changes in the **WeatherData Object** then all the things that have *subscribed* to it will be notified so they can updated themselves
 
-The FlyBehavoir contract requires any concrete class (**behavior**) using the contract to have a method called Fly in it.
+Here our **CurrentConditionsDisplay** is our **Observer** and we are utilizing *composition* in order for the **Observer** to subscribe itself to any changes in the **Observable**
 
-The contracts allow us to ensure that any concrete class (**behavior**) using the <span style="color:yellow">**interfaces**</span> (**contract**) must utlize the Fly and Quack methods in our contract ensuring we don't get any invalid behaviors.
+So **CurrentConditionsDisplay "has-a" Obseravble** type of relationship.
 
-## Breaking Down the Abstract Duck Class
-The <span style="color:green">**abstract**</span> Duck class has two contracted behaviors of Flying and Quacking that only really cares that the concrete classes have the requirements to fufill the contract. The methods withing the <span style="color:green">**abstract**</span> Duck class call upon those concrete classes end envokes their methods in order to perform the action.
+For example, if the temperature had changed in **WeatherData** then **CurrentConditionsDisplay** will get notified that it needs to update itself since it had subscribed to **WeatherData** 
 
-Since we are using <span style="color:yellow">**interfaces**</span>  (**contracts**) as our data type for our behavior variables, this allows us to reassign behavoirs at runtime to our concrete Duck Classes (like the **MallardDuck**) instead of being chained to them at compile time. Hence why we also have methods to set the behavior variables in our <span style="color:green">**abstract**</span> Duck class.
 
-# Breaking Down the Behavoirs
-Really all the Behavoirs are just concrete classes that hold a/some algorithm/s that can be implemnted independently from the object that holds the behavior/algorithm
+# Breaking Down the Classes/Interfaces
 
-## Vocab
-- [<span style="color:green">**abstract** </span>](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/abstract)
-- [<span style="color:yellow">**interface**</span>](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/interface) -->
+## ISubject Interface
+We created our general interface that we would need. In this example we cared about setting up the general requirements an **Object** would need to meet in order to be an **Observable (ISubject)**.
+
+Basic methods that an **Observable** should have is how to *register/remove*, *notify* **Observers** (someting in our **Observable** changed), and optionally some methods that allow the **Object** to set when something has changed.
+
+## IObserver Interface
+This interface has really only one requirement which is an *Update* method. So any **Observer Object** needs a way to update itself. How it implements that is not important so long as it has an implemantation of *Update* and it accepts an **Object** that *"is-a"* **Observable** as its paramter.
+
+Its important to have an *Update* method since this is what our **Observable Object** would be looking to invoke when it notifys the **Objects** registered to it.
+
+## IDisplay Interface
+This interface has really only one requirement which is a *Display* method. So any **Display Object** needs a way to *Diplay* data of interest. How it implements that is not important.
+
+## Observable Object
+Here we are abstracting away what might be different in each **Observable** which would be the *state*. So this **Observable Objects** takes care of all the requirements set by the **ISubject Interface**. This is important since our **IObserver Interface** will expect to receive an **Object** that *"is-a"* **Observable**.
+
+Here is where we really handle the properites and behavoirs for notifying, registering/removing, and opitionally setting when something has changed or not.
+
+The way we are keeping track of the **Objects** registered to the **Observerable Object** is through (what we have chose) a simple list that only check for the basic requirements of the **IObserver Interface**.
+
+## WeatherData Object
+Now we're getting into being able to use all things we've been setting up. The **WeatherData Object** manages the state of anything relating to weathter data as well as having methods to access data from itself (example shows with public properties and methods that returns value of private fields).
+
+ Its important to not that our **WeatherData Object** *inherits* from our **Observable Object**. 
+
+So **WeatherData "is-a" Obseravble** type of relationship.
+
+Since we are inheriting *properties* and *behavoirs* from our **Observable Object** our **WeatherData Object** now has the ability to do everything mention in the [**Observable Object** section](#observable-object) without needing to bloat our **WeatherData Object**.
+
+## CurrentConditionsDisplay Object 
+The **CurrentConditionsDisplay Object** is used for the purposes of displaying data. We are favoring composition by making the constructor of our **CurrentConditionsDisplay Object** require and object that *"is-a"* **Observable Object**. That way we have now allowed our **CurrentConditionsDisplay Object** to register itself to the **WeatherData Object**.
+
+**CurrentConditionsDisplay Object** has its own *Update* method which checks to make sure that that the **Observable Object** *"is-a"* **WeatherData Object**. If it is then **CurrentConditionsDisplay Object** pulls out the *state* of interest from **WeatherData Object**.
