@@ -1,7 +1,7 @@
-﻿using IntroToDesignPatterns.Classes;
-using IntroToDesignPatterns.Behaviors;
+﻿using StrategyPattern.Classes;
+using StrategyPattern.Behaviors;
 
-namespace IntroToDesignPatterns.Classes
+namespace StrategyPattern.Classes
 {
     public class MallardDuck : Duck
     {

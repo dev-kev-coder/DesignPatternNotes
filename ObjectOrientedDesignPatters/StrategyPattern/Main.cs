@@ -1,11 +1,11 @@
-﻿using IntroToDesignPatterns.Behaviors;
-using IntroToDesignPatterns.Classes;
+﻿using StrategyPattern.Behaviors;
+using StrategyPattern.Classes;
 
-namespace IntroToDesignPatterns
+namespace StrategyPattern
 {
-    internal class Program
+    public class Main
     {
-        static void Main(string[] args)
+        public static void Run()
         {
             var mallardDuck = new MallardDuck();
             var silentQuack = new MuteQuack();

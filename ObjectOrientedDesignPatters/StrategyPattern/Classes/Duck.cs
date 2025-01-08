@@ -1,7 +1,7 @@
-﻿using IntroToDesignPatterns.Interfaces;
-using IntroToDesignPatterns.Behaviors;
+﻿using StrategyPattern.Interfaces;
+using StrategyPattern.Behaviors;
 
-namespace IntroToDesignPatterns.Classes
+namespace StrategyPattern.Classes
 {
     public abstract class Duck
     {

@@ -1,5 +1,5 @@
 # Strategy Pattern
-Defines a family of algorithms, encapsulates each one, and make them interchangeable. Strategy lets the algorithm va;ry independently from clients that use it.
+Defines a family of algorithms, encapsulates each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.
 
 ## Using Ducks
 In the basic example of the Duck Strategy Pattern we are using an <span style="color:green">**abstract**</span> base class to help encapsulate the common behaviors relating to all types of ducks such as they all usually have the ability to Fly and Quack (the ones that don't still have the *action* to do so but it just ends up doing "nothing").

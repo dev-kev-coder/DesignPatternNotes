@@ -1,4 +1,4 @@
-﻿namespace IntroToDesignPatterns.Interfaces
+﻿namespace StrategyPattern.Interfaces
 {
     public interface IQuackBehavoir
     {

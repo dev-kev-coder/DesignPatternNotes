@@ -1,6 +1,6 @@
-﻿using IntroToDesignPatterns.Interfaces;
+﻿using StrategyPattern.Interfaces;
 
-namespace IntroToDesignPatterns.Behaviors
+namespace StrategyPattern.Behaviors
 {
     public class FlyWithWings : IFlyBehavior
     {
